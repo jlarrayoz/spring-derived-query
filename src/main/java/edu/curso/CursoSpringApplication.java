@@ -1,6 +1,8 @@
 package edu.curso;
 
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +15,8 @@ import edu.curso.models.PersonaRepository;
 
 @SpringBootApplication
 public class CursoSpringApplication {
+	
+	private static final Logger log = LoggerFactory.getLogger(CursoSpringApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringApplication.class, args);
@@ -34,38 +38,38 @@ public class CursoSpringApplication {
 			repo.save(new Persona(3L, "Sofia", "Larrayoz", 11, true));
 			repo.save(new Persona(4L, "juan", "Rodriguez", 35, true));
 			
-			System.out.println("Metodo findPersonasByNombre(\"Juan\")");
+			log.info("Metodo findPersonasByNombre(\"Juan\")");
 			repo.findPersonasByNombre("Juan").forEach(System.out::println);
 			
-			System.out.println("Metodo findPersonasByNombre(\"juan\")");
+			log.info("Metodo findPersonasByNombre(\"juan\")");
 			repo.findPersonasByNombre("juan").forEach(System.out::println);
 			
-			System.out.println("Metodo findPersonasByNombreIgnoringCase(\"jUaN\") no es camelcase");
+			log.info("Metodo findPersonasByNombreIgnoringCase(\"jUaN\") no es camelcase");
 			repo.findPersonasByNombreIgnoringCase("jUaN").forEach(System.out::println);
 			
-			System.out.println("findPersonasByNombreAndApellido");
+			log.info("findPersonasByNombreAndApellido");
 			repo.findPersonasByNombreAndApellido("Sofia", "Larrayoz").forEach(System.out::println);
 			
 			
-			System.out.println("findPersonasByNombreAndApellidoAllIgnoringCase");
+			log.info("findPersonasByNombreAndApellidoAllIgnoringCase");
 			repo.findPersonasByNombreAndApellidoAllIgnoringCase("sOfIa", "LaRRaYoz").forEach(System.out::println);
 			
-			System.out.println("findByEdadBetween");
+			log.info("findByEdadBetween");
 			repo.findByEdadBetween(11,17).forEach(System.out::println);
 			
-			System.out.println("obtenerPersonasApellidoLarrayoz");
+			log.info("obtenerPersonasApellidoLarrayoz");
 			repo.obtenerPersonasApellidoLarrayoz().forEach(System.out::println);
 			
-			System.out.println("obtenerPersonasApellidoCustom");
+			log.info("obtenerPersonasApellidoCustom");
 			repo.obtenerPersonasApellidoCustom("Perez").forEach(System.out::println);
 			
-			System.out.println("obtenerFirstPersonasByApellido");
+			log.info("obtenerFirstPersonasByApellido");
 			repo.findFirstByApellido("Larrayoz").forEach(System.out::println);
 			
-			System.out.println("findAllByOrderByIdDesc");
+			log.info("findAllByOrderByIdDesc");
 			repo.findAllByOrderByIdDesc().forEach(System.out::println);
 			
-			System.out.println("Otro ejemplo del uso de Sort");
+			log.info("Otro ejemplo del uso de Sort");
 			repo.findAll(Sort.by(Sort.Direction.DESC, "id")).forEach(System.out::println);
 		
 		});
